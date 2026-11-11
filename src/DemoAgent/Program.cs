@@ -89,7 +89,7 @@ internal sealed class Demo
                         await demo.ScaleAsync(count, concurrency);
                         break;
                     default:
-                        throw new ArgumentException("Unknown command. Run dotnet run --project src/DemoAgent -- help.");
+                        throw new ArgumentException("Unknown command. Run dotnet run -- help.");
                 }
             }
             finally
@@ -420,7 +420,7 @@ internal sealed class Demo
             lock (manifestLock) { owned.Remove(id); SaveManifest(); }
             Trace("sandbox-deleted", new { sandbox = id });
         }
-        if (failed > 0) throw new InvalidOperationException("Sandbox cleanup was incomplete. Run dotnet run --project src/DemoAgent -- cleanup.");
+        if (failed > 0) throw new InvalidOperationException("Sandbox cleanup was incomplete. Run dotnet run -- cleanup.");
         string path = $".demo/run-{runId}.json";
         if (File.Exists(path)) File.Delete(path);
     }

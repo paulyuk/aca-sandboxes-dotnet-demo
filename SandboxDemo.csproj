@@ -4,8 +4,12 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <CopilotSkipCliDownload>true</CopilotSkipCliDownload>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="src/DemoAgent/*.cs" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.ContainerApps.Sandbox" Version="1.0.0-beta.1" />
     <PackageReference Include="Azure.Identity" Version="1.21.0" />
