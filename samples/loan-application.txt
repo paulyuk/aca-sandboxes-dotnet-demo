@@ -1,0 +1,16 @@
+FICTIONAL AUTO-LOAN APPLICATION: DEMO DATA ONLY
+
+Applicant: Jordan Fiction
+Email: jordan.applicant@example.invalid
+Phone: 202-555-0142
+SSN placeholder: 000-00-0000
+Monthly income stated by applicant: $5,400
+Vehicle: 2024 Example Motors Comet
+Purchase price: $31,500
+Down payment: $7,500
+Requested amount: $24,000
+Requested term: 60 months
+Illustrative APR: 7.5%
+
+Please summarize this application and list missing information.
+All statements are unverified. This is not a request for a lending decision.
