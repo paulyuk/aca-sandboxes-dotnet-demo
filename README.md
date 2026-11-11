@@ -4,6 +4,10 @@ Give an agent an untrusted loan application without giving its document tool you
 
 The agent has a model. The tool does not. Both are C#; the tool runs inside a .NET 10 sandbox. The host uses the new Sandbox .NET SDK to create the sandbox, upload files, execute the tool, inspect egress decisions, and clean up.
 
+![Sandbox and AI Gateway pattern: the agent calls remote models through the gateway and runs tools in isolated sandboxes with default-deny egress.](docs/images/sandbox-gateway-minimal-building-blocks.svg)
+
+This sample runs the agent locally; cloud hosts, triggers, and MCP shown here are optional parts of the broader pattern.
+
 ## Quickstart
 
 Prerequisites: .NET 10 SDK, the current [ACA CLI](https://sandboxes.azure.com/docs/sandboxes/quickstart/setup-cli) configured with your subscription, resource group and region, an existing Azure CLI sign-in, and Copilot CLI available on `PATH`. Model requests use your existing OpenAI-compatible Azure AI Gateway connection, not Copilot's default model.

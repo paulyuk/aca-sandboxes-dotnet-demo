@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 730" width="1400" height="730" preserveAspectRatio="xMidYMid meet" font-family="Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif">
+  <title>Sandbox &amp; AI Gateway Pattern: Tool Isolation</title>
+  <desc>An interchangeable agent host dispatches tools to ephemeral ACA Sandboxes and checks returned results. AI Gateway governs shared model and tool access. Host options include Foundry Hosted Agents, ACA, App Service, and Functions. Document processing is the built-in example, whose development host runs locally.</desc>
+
+  <style>
+    :root {
+      --bg:#ffffff; --ink:#16202b; --muted:#64748b; --line:#cbd5e1;
+      --card:#ffffff; --soft:#f1f5f9; --accent:#486581; --accent-soft:#f3f6f9;
+      --accent-line:#bcccdc; --green:#567060; --green-soft:#f2f5f2;
+      --amber:#b45309; --amber-soft:#fffbeb;
+      --teal:#0f766e; --teal-soft:#f0fdfa; --teal-line:#99f6e4;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:#0f1620; --ink:#e8eef5; --muted:#93a3b6; --line:#33465c;
+        --card:#16202b; --soft:#1b2733; --accent:#9fb3c8; --accent-soft:#1b2936;
+        --accent-line:#486581; --green:#a3b8a7; --green-soft:#1b2b23;
+        --amber:#fbbf24; --amber-soft:#3f2d05;
+        --teal:#2dd4bf; --teal-soft:#042f2c; --teal-line:#115e59;
+      }
+    }
+    .bg    { fill: var(--bg); }
+    .card  { fill: var(--card); stroke: var(--line); stroke-width: 1.5; }
+    .soft  { fill: var(--soft); stroke: var(--line); stroke-width: 1.5; }
+    .panel { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+    .gate  { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.75; }
+    .chip  { fill: var(--card); stroke: var(--accent-line); stroke-width: 1.25; }
+    .pill  { fill: var(--accent-soft); stroke: var(--accent-line); stroke-width: 1.25; }
+    .trig  { fill: var(--soft); stroke: var(--line); stroke-width: 1.25; }
+    .egress{ fill: var(--amber-soft); stroke: var(--amber); stroke-width: 1.75; }
+    .prim  { fill: var(--soft); stroke: var(--line); stroke-width: 1; }
+    .primchip { fill: var(--card); stroke: var(--line); stroke-width: 1; }
+    .primchip + text { fill: var(--muted); }
+    .t     { fill: var(--ink); }
+    .m     { fill: var(--muted); }
+    .a     { fill: var(--accent); }
+    .am    { fill: var(--amber); }
+    .tl    { fill: var(--muted); }
+    .cap   { font-size: 11px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; }
+    .lbl   { font-size: 12px; font-style: italic; }
+    .sub   { font-size: 12.5px; }
+    .flow  { fill: none; stroke: var(--accent); stroke-width: 2; }
+    .flow-amber { fill: none; stroke: var(--amber); stroke-width: 2; }
+    .flow-dash { fill: none; stroke: var(--muted); stroke-width: 1.75; stroke-dasharray: 5 5; }
+    .badge { fill: var(--soft); stroke: var(--line); stroke-width: 1; }
+    .badgeT{ fill: var(--muted); font-size: 11px; font-weight: 500; }
+  </style>
+
+  <defs>
+    <marker id="arw" viewBox="0 0 10 10" refX="9.2" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0,0.6 L10,5 L0,9.4 Z" fill="var(--accent)"/>
+    </marker>
+    <marker id="arw-amber" viewBox="0 0 10 10" refX="9.2" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0,0.6 L10,5 L0,9.4 Z" fill="var(--amber)"/>
+    </marker>
+    <marker id="arw-muted" viewBox="0 0 10 10" refX="9.2" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0,0.6 L10,5 L0,9.4 Z" fill="var(--muted)"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1400" height="730"/>
+
+  <!-- Title -->
+  <text class="t" x="60" y="58" font-size="27" font-weight="700" letter-spacing="-0.4">Sandbox &amp; AI Gateway Pattern: Tool Isolation</text>
+  <text class="m" x="60" y="86" font-size="14">Agent orchestration · isolated tool execution · shared model and tool access · document processing is one example</text>
+
+  <!-- Column A: Triggers -->
+  <text class="m cap" x="60" y="150">Triggers</text>
+  <rect class="trig" x="60" y="165" width="220" height="60" rx="12"/>
+  <text class="t" x="80" y="201" font-size="15" font-weight="650">HTTP REST</text>
+
+  <rect class="trig" x="60" y="245" width="220" height="60" rx="12"/>
+  <text class="t" x="80" y="281" font-size="15" font-weight="650">Timer</text>
+
+  <rect class="trig" x="60" y="325" width="220" height="60" rx="12"/>
+  <text class="t" x="80" y="361" font-size="15" font-weight="650">Connectors events</text>
+
+  <path class="flow" d="M280,195 L320,240" marker-end="url(#arw)"/>
+  <path class="flow" d="M280,275 L320,275" marker-end="url(#arw)"/>
+  <path class="flow" d="M280,355 L320,355" marker-end="url(#arw)"/>
+
+  <!-- Column B: Host Compute -->
+  <text class="m cap" x="320" y="150">Interchangeable agent host</text>
+  <rect class="card" x="320" y="165" width="320" height="255" rx="16"/>
+  <text class="t" x="345" y="200" font-size="19" font-weight="700">Agent</text>
+
+  <rect class="badge" x="345" y="220" width="270" height="32" rx="8"/>
+  <text class="badgeT" x="480" y="240" text-anchor="middle">FHA / ACA / App Service / Functions</text>
+
+  <rect class="soft" x="345" y="270" width="270" height="130" rx="10"/>
+  <text class="t" x="365" y="300" font-size="14" font-weight="650">Agent control loop</text>
+  <text class="m sub" x="365" y="325">Call models through gateway</text>
+  <text class="m sub" x="365" y="347">Dispatch tools to isolation</text>
+  <text class="m sub" x="365" y="369">Check results; continue or stop</text>
+
+  <!-- Flow: Host Compute -> ACA Sandboxes -->
+  <path class="flow" d="M480,165 L480,110 L850,110 L850,165" marker-end="url(#arw)"/>
+  <text class="m lbl" x="850" y="128" text-anchor="middle">create → exec → delete</text>
+  <path class="flow" d="M680,250 L640,250" marker-end="url(#arw)"/>
+  <text class="m lbl" x="660" y="280" text-anchor="middle">result</text>
+
+  <!-- Flow: Host Compute -> AI Gateway -->
+  <path class="flow" d="M640,380 L660,380 L660,520 L680,520" marker-end="url(#arw)"/>
+  <text class="m lbl" x="635" y="455" text-anchor="end" font-size="11">Model requests · checked context</text>
+
+  <!-- Column C: ACA Sandboxes -->
+  <text class="m cap" x="680" y="150">Tool isolation</text>
+  <rect class="panel" x="680" y="165" width="340" height="100" rx="16"/>
+  <text class="a" x="705" y="196" font-size="17" font-weight="700">★ ACA Sandboxes</text>
+  <text class="m" x="705" y="214" font-size="11.5">Ephemeral microVM · egress-default: Deny</text>
+  <rect class="pill" x="705" y="226" width="160" height="24" rx="12"/>
+  <text class="a" x="785" y="242" font-size="11" font-weight="700" text-anchor="middle">Scoped tool execution</text>
+  <rect class="pill" x="875" y="226" width="125" height="24" rx="12"/>
+  <text class="a" x="937" y="242" font-size="11" font-weight="700" text-anchor="middle">create · exec · delete</text>
+
+  <rect class="egress" x="680" y="283" width="340" height="50" rx="14"/>
+  <text class="am" x="705" y="313" font-size="14" font-weight="700">Default deny · explicit egress policy</text>
+
+  <rect class="card" x="680" y="351" width="340" height="50" rx="14"/>
+  <text class="t" x="705" y="381" font-size="14" font-weight="650">Check result contract + policy</text>
+  <text class="m" x="1045" y="195" font-size="12">Tool execution in ephemeral</text>
+  <text class="m" x="1045" y="217" font-size="12">isolated microVMs.</text>
+  <text class="m" x="1045" y="255" font-size="12">Connect sandbox + gateway</text>
+  <text class="m" x="1045" y="277" font-size="12">before running the example.</text>
+  <text class="m" x="1045" y="325" font-size="12">Example: document processing</text>
+  <text class="m" x="1045" y="347" font-size="12">Return checked text or rejection.</text>
+
+  <!-- Column C (below): AI Gateway -->
+  <text class="m cap" x="680" y="440">Shared model and tool access</text>
+  <rect class="gate" x="680" y="455" width="340" height="150" rx="16"/>
+  <text class="a" x="705" y="485" font-size="17" font-weight="700">AI Gateway</text>
+
+  <rect class="chip" x="705" y="500" width="140" height="36" rx="8"/>
+  <text class="t" x="775" y="523" font-size="11.5" font-weight="650" text-anchor="middle">Model Routing</text>
+
+  <rect class="chip" x="855" y="500" width="140" height="36" rx="8"/>
+  <text class="t" x="925" y="523" font-size="11.5" font-weight="650" text-anchor="middle">MCP</text>
+
+  <rect class="chip" x="705" y="544" width="140" height="36" rx="8"/>
+  <text class="t" x="775" y="567" font-size="11.5" font-weight="650" text-anchor="middle">Policies</text>
+
+  <rect class="chip" x="855" y="544" width="140" height="36" rx="8"/>
+  <text class="t" x="925" y="567" font-size="11.5" font-weight="650" text-anchor="middle">Enforcement</text>
+  <path class="flow" d="M1020,530 L1060,530" marker-end="url(#arw)"/>
+  <rect class="card" x="1060" y="495" width="280" height="70" rx="14"/>
+  <text class="t" x="1200" y="537" font-size="17" font-weight="700" text-anchor="middle">Remote model</text>
+  <text class="m" x="320" y="602" font-size="12">Host choice is independent of tool isolation.</text>
+
+  <!-- Shared Primitives: full-width bottom bar -->
+  <rect class="prim" x="60" y="640" width="1280" height="60" rx="14"/>
+  <text class="tl" x="85" y="676" font-size="13" font-weight="500">Shared Primitives</text>
+
+  <rect class="primchip" x="290" y="655" width="90" height="30" rx="8"/>
+  <text class="t" x="335" y="675" font-size="11.5" font-weight="650" text-anchor="middle">Auth</text>
+  <rect class="primchip" x="390" y="655" width="90" height="30" rx="8"/>
+  <text class="t" x="435" y="675" font-size="11.5" font-weight="650" text-anchor="middle">OTEL</text>
+  <rect class="primchip" x="490" y="655" width="90" height="30" rx="8"/>
+  <text class="t" x="535" y="675" font-size="11.5" font-weight="650" text-anchor="middle">Audit</text>
+  <text class="m sub" x="600" y="675">- recommended cross-cutting concerns; not all provisioned by this starter</text>
+
+</svg>
