@@ -407,19 +407,19 @@ internal sealed class Demo
     async Task CleanupOwnedAsync()
     {
         int failed = 0;
-        foreach (string id in owned.ToArray())
+        await Parallel.ForEachAsync(owned.ToArray(), new ParallelOptions { MaxDegreeOfParallelism = 10 }, async (id, _) =>
         {
             try { await group.GetSandboxResource(id).DeleteAsync(); }
             catch (RequestFailedException ex) when (ex.Status == 404) { }
             catch (Exception ex)
             {
-                failed++;
+                Interlocked.Increment(ref failed);
                 Trace("cleanup-failure", new { sandbox = id, error = ex.GetType().Name });
-                continue;
+                return;
             }
             lock (manifestLock) { owned.Remove(id); SaveManifest(); }
             Trace("sandbox-deleted", new { sandbox = id });
-        }
+        });
         if (failed > 0) throw new InvalidOperationException("Sandbox cleanup was incomplete. Run dotnet run -- cleanup.");
         string path = $".demo/run-{runId}.json";
         if (File.Exists(path)) File.Delete(path);

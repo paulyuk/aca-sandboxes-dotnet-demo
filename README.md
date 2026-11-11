@@ -119,7 +119,7 @@ The arguments are count and concurrency. The command counts success only after R
 
 ## Traces and cleanup
 
-Each command deletes its own sandboxes. A dedicated group is retained for repeat demos. After an interrupted run:
+Each command deletes its own sandboxes, up to 10 at a time, and waits for every delete to finish. Failed IDs remain in the private run manifest for retry, and cleanup failures produce a nonzero exit code. A dedicated group is retained for repeat demos. After an interrupted run:
 
 ```bash
 dotnet run -- cleanup
